@@ -1,9 +1,17 @@
 const http = require("https")
 
+const data = JSON.stringify({ name: "Roger", age: 8 })
+
 const options = {
-  method: "GET",
-  hostname: "dog.ceo",
-  path: "/api/breeds/list/all",
+  method: "POST",
+  hostname: "ptsv2.com",
+  port: null,
+  path: "/t/g7rl0-1623597417/post",
+  headers: {
+    "content-type": "application/json",
+    authorization: "Bearer 123abc456def",
+    "content-lenght": data.length,
+  },
 }
 
 const req = http.request(options, (res) => {
@@ -15,11 +23,9 @@ const req = http.request(options, (res) => {
 
   res.on("end", () => {
     const body = Buffer.concat(chunks)
-    const data = JSON.parse(body.toString())
-    for (const breed in data.message) {
-      console.log(breed)
-    }
+    console.log(body.toString())
   })
 })
 
+req.write(data)
 req.end()
