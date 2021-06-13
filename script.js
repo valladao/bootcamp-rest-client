@@ -1,12 +1,25 @@
-const fetch = require("node-fetch")
+const http = require("https")
 
-;(async () => {
-  const response = await fetch("https://dog.ceo/api/breeds/list/all", {
-    method: "GET",
+const options = {
+  method: "GET",
+  hostname: "dog.ceo",
+  path: "/api/breeds/list/all",
+}
+
+const req = http.request(options, (res) => {
+  const chunks = []
+
+  res.on("data", (chunk) => {
+    chunks.push(chunk)
   })
 
-  const data = await response.json()
-  for (const breed in data.message) {
-    console.log(breed)
-  }
-})()
+  res.on("end", () => {
+    const body = Buffer.concat(chunks)
+    const data = JSON.parse(body.toString())
+    for (const breed in data.message) {
+      console.log(breed)
+    }
+  })
+})
+
+req.end()
