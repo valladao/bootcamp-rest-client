@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/valladao/bootcamp-rest-client/issues"
   },
-  "homepage": "https://github.com/valladao/bootcamp-rest-client#readme"
+  "homepage": "https://github.com/valladao/bootcamp-rest-client#readme",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
 }
