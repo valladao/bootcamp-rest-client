@@ -1,25 +1,15 @@
-const http = require("https")
+const request = require("request")
 
 const options = {
   method: "GET",
-  hostname: "dog.ceo",
-  path: "/api/breeds/list/all",
+  url: "https://dog.ceo/api/breeds/list/all",
+  json: true,
 }
 
-const req = http.request(options, (res) => {
-  const chunks = []
+request(options, (error, response, body) => {
+  if (error) throw new Error(error)
 
-  res.on("data", (chunk) => {
-    chunks.push(chunk)
-  })
-
-  res.on("end", () => {
-    const body = Buffer.concat(chunks)
-    const data = JSON.parse(body.toString())
-    for (const breed in data.message) {
-      console.log(breed)
-    }
-  })
+  for (const breed in body.message) {
+    console.log(breed)
+  }
 })
-
-req.end()
