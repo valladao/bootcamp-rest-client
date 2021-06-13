@@ -1,19 +1,19 @@
 const axios = require("axios")
 
-;(async () => {
-  const response = await axios.post(
-    "https://ptsv2.com/t/g7rl0-1623597417/post",
-    {
-      name: "Roger",
-      age: 8,
-    },
-    {
-      headers: {
-        "content-type": "application/json",
-        authorization: "Bearer 123abc456def",
-      },
-    }
-  )
+const getBreeds = async () => {
+  try {
+    return await axios.get("https://dog.ceo/api/breeds/list/all")
+  } catch (error) {
+    console.error(error)
+  }
+}
 
-  console.log(response.data)
-})()
+const countBreeds = async () => {
+  const breeds = await getBreeds()
+
+  if (breeds.data.message) {
+    console.log(`Got ${Object.entries(breeds.data.message).length} breeds.`)
+  }
+}
+
+countBreeds()
