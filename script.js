@@ -1,15 +1,8 @@
-const request = require("request")
+const axios = require("axios")
 
-const options = {
-  method: "GET",
-  url: "https://dog.ceo/api/breeds/list/all",
-  json: true,
-}
-
-request(options, (error, response, body) => {
-  if (error) throw new Error(error)
-
-  for (const breed in body.message) {
+;(async () => {
+  const response = await axios.get("https://dog.ceo/api/breeds/list/all")
+  for (const breed in response.data.message) {
     console.log(breed)
   }
-})
+})()
