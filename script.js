@@ -1,12 +1,17 @@
 const fetch = require("node-fetch")
 
 ;(async () => {
-  const response = await fetch("https://dog.ceo/api/breeds/list/all", {
-    method: "GET",
+  const response = await fetch("https://ptsv2.com/t/g7rl0-1623597417/post", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: "Bearer 123abc456def",
+    },
+    body: {
+      name: "Roger",
+      age: 8,
+    },
   })
 
-  const data = await response.json()
-  for (const breed in data.message) {
-    console.log(breed)
-  }
+  console.log(response.data)
 })()
